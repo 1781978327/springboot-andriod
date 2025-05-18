@@ -31,12 +31,19 @@ android {
     }
 }
 
+configurations.all {
+    resolutionStrategy {
+        force 'org.jetbrains:annotations:17.0.0'
+        exclude group: 'org.jetbrains', module: 'annotations-java5'
+    }
+}
+
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.11.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     
-    // Retrofit for API calls
+    // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
@@ -44,26 +51,52 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:4.12.0'
     
     // Markdown support
-    implementation 'io.noties.markwon:core:4.6.2'
-    implementation 'io.noties.markwon:ext-strikethrough:4.6.2'
-    implementation 'io.noties.markwon:ext-tables:4.6.2'
-    implementation 'io.noties.markwon:ext-tasklist:4.6.2'
-    implementation 'io.noties.markwon:syntax-highlight:4.6.2'
-    implementation 'io.noties.markwon:html:4.6.2'
+    implementation('io.noties.markwon:core:4.6.2') {
+        exclude group: 'org.jetbrains', module: 'annotations'
+        exclude group: 'org.jetbrains', module: 'annotations-java5'
+    }
+    implementation('io.noties.markwon:ext-strikethrough:4.6.2') {
+        exclude group: 'org.jetbrains', module: 'annotations'
+        exclude group: 'org.jetbrains', module: 'annotations-java5'
+    }
+    implementation('io.noties.markwon:ext-tables:4.6.2') {
+        exclude group: 'org.jetbrains', module: 'annotations'
+        exclude group: 'org.jetbrains', module: 'annotations-java5'
+    }
+    implementation('io.noties.markwon:ext-tasklist:4.6.2') {
+        exclude group: 'org.jetbrains', module: 'annotations'
+        exclude group: 'org.jetbrains', module: 'annotations-java5'
+    }
+    implementation('io.noties.markwon:syntax-highlight:4.6.2') {
+        exclude group: 'org.jetbrains', module: 'annotations'
+        exclude group: 'org.jetbrains', module: 'annotations-java5'
+    }
+    implementation('io.noties.markwon:html:4.6.2') {
+        exclude group: 'org.jetbrains', module: 'annotations'
+        exclude group: 'org.jetbrains', module: 'annotations-java5'
+    }
+    implementation('io.noties.markwon:image:4.6.2') {
+        exclude group: 'org.jetbrains', module: 'annotations'
+        exclude group: 'org.jetbrains', module: 'annotations-java5'
+    }
+    implementation('io.noties.markwon:linkify:4.6.2') {
+        exclude group: 'org.jetbrains', module: 'annotations'
+        exclude group: 'org.jetbrains', module: 'annotations-java5'
+    }
+    implementation('io.noties.markwon:recycler:4.6.2') {
+        exclude group: 'org.jetbrains', module: 'annotations'
+        exclude group: 'org.jetbrains', module: 'annotations-java5'
+    }
+    implementation('io.noties.markwon:recycler-table:4.6.2') {
+        exclude group: 'org.jetbrains', module: 'annotations'
+        exclude group: 'org.jetbrains', module: 'annotations-java5'
+    }
     implementation 'io.noties:prism4j:2.0.0'
     annotationProcessor 'io.noties:prism4j-bundler:2.0.0'
     
-    // Coroutines for async operations
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.7.0'
-    
-    // 排除冲突的依赖
-    configurations.all {
-        resolutionStrategy {
-            force 'org.jetbrains:annotations:23.0.0'
-            exclude group: 'org.jetbrains', module: 'annotations-java5'
-        }
-    }
+    // Lombok
+    compileOnly 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
     
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
