@@ -1,5 +1,6 @@
 package com.example.demo2.controller;
 
+import com.example.demo2.model.ChatRequest;
 import com.example.demo2.service.DeepSeekService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,18 +20,6 @@ public class DeepSeekController {
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Error occurred while communicating with DeepSeek: " + e.getMessage());
-        }
-    }
-
-    public static class ChatRequest {
-        private String question;
-
-        public String getQuestion() {
-            return question;
-        }
-
-        public void setQuestion(String question) {
-            this.question = question;
         }
     }
 } 

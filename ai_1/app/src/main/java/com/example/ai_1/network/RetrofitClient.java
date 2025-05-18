@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 public class RetrofitClient {
     // 在Android模拟器中，10.0.2.2 指向电脑的 localhost
-    private static final String BASE_URL = "http://1192.168.31.214:8080/";
+    private static final String BASE_URL = "http://192.168.31.214:8080/";
     private static Retrofit retrofit = null;
 
     public static Retrofit getClient() {

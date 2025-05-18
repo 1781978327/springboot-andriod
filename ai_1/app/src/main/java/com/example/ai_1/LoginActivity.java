@@ -7,6 +7,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ai_1.databinding.ActivityLoginBinding;
+import com.example.ai_1.model.User;
 import com.example.ai_1.model.UserRequest;
 import com.example.ai_1.network.ApiService;
 import com.example.ai_1.network.RetrofitClient;
@@ -46,20 +47,36 @@ public class LoginActivity extends AppCompatActivity {
         request.setUsername(username);
         request.setPassword(password);
 
-        apiService.login(request).enqueue(new Callback<UserRequest>() {
+        apiService.login(request).enqueue(new Callback<User>() {
             @Override
-            public void onResponse(Call<UserRequest> call, Response<UserRequest> response) {
+            public void onResponse(Call<User> call, Response<User> response) {
                 if (response.isSuccessful()) {
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                    finish();
+                    User user = response.body();
+                    if (user != null) {
+                        // 可以在这里保存用户信息到SharedPreferences
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        finish();
+                    } else {
+                        Toast.makeText(LoginActivity.this, "登录失败：服务器返回数据为空", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    Toast.makeText(LoginActivity.this, "登录失败：" + response.message(), Toast.LENGTH_SHORT).show();
+                    String errorBody = "";
+                    try {
+                        errorBody = response.errorBody() != null ? response.errorBody().string() : "未知错误";
+                    } catch (Exception e) {
+                        errorBody = "解析错误信息失败";
+                    }
+                    Toast.makeText(LoginActivity.this, "登录失败：" + errorBody, Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<UserRequest> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "网络错误：" + t.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<User> call, Throwable t) {
+                String errorMessage = t.getMessage();
+                if (errorMessage == null) {
+                    errorMessage = "网络连接失败，请检查网络设置";
+                }
+                Toast.makeText(LoginActivity.this, "网络错误：" + errorMessage, Toast.LENGTH_SHORT).show();
             }
         });
     }

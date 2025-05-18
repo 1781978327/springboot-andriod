@@ -35,7 +35,3 @@ out/
 
 ### VS Code ###
 .vscode/
-
-### Application Specific ###
-application-local.properties
-*.log
