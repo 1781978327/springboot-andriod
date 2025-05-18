@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: demo2
+  datasource:
+    url: jdbc:mysql://localhost:3306/mysql?useSSL=false&serverTimezone=UTC
+    username: root
+    password: Lml123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+deepseek:
+  api:
+    key: sk-591ac95cf6b049708a46340d91f5e984
+    url: https://api.deepseek.com/chat/completions 
